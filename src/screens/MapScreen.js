@@ -57,7 +57,13 @@ export default function MapScreen({ navigation }) {
         region={currentRegion}
         showsUserLocation={true}
         showsMyLocationButton={true}
-      />
+        
+      >
+        <Marker
+         image = "/Users/khanh/snapAcademy/education/assets/icon.png"
+        >
+        </Marker>
+      </MapView>
 
       <View style={[styles.mapFooter]}>
         <View style={styles.locationContainer}>
