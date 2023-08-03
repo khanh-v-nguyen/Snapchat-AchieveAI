@@ -24,9 +24,10 @@ export default function UserChat({ chatId }) {
         return;
 
       let fixTimestampMessages = dbMessages.map((obj) => {
+        //console.log("date is: ", obj.createdAt);
         return {
           ...obj,
-          createdAt: obj.createdAt.toDate(),
+          //createdAt: obj.createdAt.toDate(),
         };
       });
 
