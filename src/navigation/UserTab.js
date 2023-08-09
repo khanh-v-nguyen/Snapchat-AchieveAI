@@ -65,7 +65,7 @@ export default function UserStack({ route, navigation }) {
       barStyle={{
         backgroundColor: "black",
       }}
-      initialRouteName="Camera"
+      initialRouteName="Chat"
     >
       <Tab.Screen
         name="Map"

@@ -34,6 +34,10 @@ const DATA = [
     id: "58694a0f-3da1-471f-bd96-145571e29d72",
     title: "Third Item",
   },
+  {
+    id: "58694a0f-3da1-471f-bd96-145571e29d73",
+    title: "Third Item",
+  },
 ];
 
 export default function StoriesScreen({ route, navigation }) {

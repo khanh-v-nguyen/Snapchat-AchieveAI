@@ -1,72 +1,147 @@
-import react from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  ScrollView,
-  ImageBackground,
-} from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
-import { fontHeader } from "../../assets/themes/font";
-import { colors } from "../../assets/themes/colors";
+// import react from "react";
+// import {
+//   View,
+//   Text,
+//   StyleSheet,
+//   Image,
+//   ScrollView,
+//   ImageBackground,
+// } from "react-native";
+// import { useSafeAreaInsets } from "react-native-safe-area-context";
+// import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+// import { fontHeader } from "../../assets/themes/font";
+// import { colors } from "../../assets/themes/colors";
+
+// export default function DiscoverFeed() {
+//   return (
+//     <View style={styles.Square}>
+//       <ImageBackground
+//         style={styles.FeedImage}
+//         imageStyle={{ borderRadius: 20 }}
+//         source={{
+//           uri: "https://eccles.utah.edu/wp-content/uploads/2017/02/snapchat.jpg",
+//         }}
+//       >
+//         <Text style={styles.FeedText}>Hello My Name Is Chillahs</Text>
+//       </ImageBackground>
+//     </View>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   FeedContainer: {
+//     paddingLeft: 20,
+//     width: "100%",
+//   },
+//   Square: {
+//     width: "49%",
+//     alignItems: "center",
+//     backgroundColor: colors.secondary,
+//     borderRadius: 4,
+//   },
+//   FeedImage: {
+//     width: 180,
+//     height: 320,
+//     borderRadius: 20,
+//     shadowColor: "#000",
+//     shadowOffset: {
+//       width: 0,
+//       height: 2,
+//     },
+//     shadowOpacity: 0.25,
+//     shadowRadius: 3.84,
+//     elevation: 5,
+//   },
+//   FeedText: {
+//     padding: 8,
+//     fontWeight: "700",
+//     fontSize: 14,
+//     color: "white",
+//     position: "absolute",
+//     right: 15,
+//     bottom: 15,
+//     textShadowColor: "#000",
+//     textShadowOffset: {
+//       width: -1,
+//       height: -1,
+//     },
+//     textShadowRadius: 1,
+//     textShadowOpacity: 1,
+//   },
+//   smallFeedText: {},
+// });
+
+///
+
+import React from "react";
+import { View, Text } from "react-native";
+import { ImageBackground } from "react-native";
+import { StyleSheet } from "react-native";
 
 export default function DiscoverFeed() {
-  return (
-    <View style={styles.Square}>
-      <ImageBackground
-        style={styles.FeedImage}
-        imageStyle={{ borderRadius: 20 }}
-        source={{
-          uri: "https://eccles.utah.edu/wp-content/uploads/2017/02/snapchat.jpg",
-        }}
-      >
-        <Text style={styles.FeedText}>Hello My Name Is Chillahs</Text>
-      </ImageBackground>
-    </View>
-  );
+    return (
+        
+        <View style={styles.container}>
+            <ImageBackground style={styles.feedImage}
+                // style={{height: 100, width: 100}}
+                imageStyle={{borderRadius: 12}}
+                source={{ uri: "https://i.pinimg.com/1200x/2e/77/ed/2e77ed5fe025283af8e3e95dcd3323b0.jpg" }}>
+            
+                <View style={styles.textDiv}>
+                    <Text style = {styles.dText}>Hello World! I am Chillah the Snap Ghost!</Text>
+                    <Text style = {styles.sponsoredText}>Sponsored</Text>
+                </View>
+            </ImageBackground>
+
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
-  FeedContainer: {
-    paddingLeft: 20,
-    width: "100%",
-  },
-  Square: {
-    width: "49%",
-    alignItems: "center",
-    backgroundColor: colors.secondary,
-    borderRadius: 4,
-  },
-  FeedImage: {
-    width: 180,
-    height: 320,
-    borderRadius: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
+    container: {
+      paddingBottom: 10,
+      marginRight: 5,
+      marginLeft: 5,
+      marginTop: 10,
+      shadowOpacity: 0.4,
+        shadowRadius: 6,
+        elevation: 15,
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  FeedText: {
-    padding: 8,
-    fontWeight: "700",
-    fontSize: 14,
-    color: "white",
-    position: "absolute",
-    right: 15,
-    bottom: 15,
-    textShadowColor: "#000",
-    textShadowOffset: {
-      width: -1,
-      height: -1,
+    square: {
+        flexDirection: "row"
     },
-    textShadowRadius: 1,
-    textShadowOpacity: 1,
-  },
-  smallFeedText: {},
-});
+    feedImage : {
+        width: 175, 
+        height: 300,
+        shadowColor: "grey",
+        padding: 10,
+    },
+    image: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+    text: {
+      color: 'white',
+      fontSize: 42,
+      lineHeight: 84,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      backgroundColor: '#000000c0',
+    },
+    dText: {
+        color: "white",
+        fontWeight: "bold",
+    },
+    sponsoredText: {
+        color: "white",
+    },
+    textDiv: {
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "flex-end", 
+    }
+  });

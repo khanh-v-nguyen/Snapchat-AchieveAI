@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { fontHeader } from "../../assets/themes/font";
 import { colors } from "../../assets/themes/colors";
+// import StoriesBitmoji from "../components/StoriesBitmoji";
 
 import Header from "../components/Header";
 
-export default function StoriesBitmoji() {
+export default function StoriesBitmoji(props) {
+  const [name, setName] = useState(props.name)
+
   return (
     <View style={styles.myBitmoji}>
       <View style={styles.shadows}> 
@@ -19,8 +22,9 @@ export default function StoriesBitmoji() {
       </View>
       
       <View style={styles.bitmojiTextContainer}>
-        <Text style={styles.bitmojiText}>Name</Text>
-        <Text style={styles.usernameText}>Username</Text>
+        <Text style={styles.bitmojiText}>{name}</Text>
+        {/* <View style={{height: 5, width: 5, backgroundColor: "green", borderRadius: "50%"}}></View> */}
+        <Text style={styles.usernameText}>Studying</Text>
       </View>
     </View>
   );
@@ -42,6 +46,8 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor:"#E6E6E6",
     borderRadius:"50%",
+    borderWidth:2,
+    borderColor: "blue"
   },
   shadows: {
     shadowColor:"black",

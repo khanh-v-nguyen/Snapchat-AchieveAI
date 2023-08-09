@@ -4,25 +4,26 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { fontHeader } from "../../assets/themes/font";
 import { colors } from "../../assets/themes/colors";
+// import StoriesBitmoji from "../components/StoriesBitmoji";
 
 import Header from "../components/Header";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function StoriesBitmoji() {
+export default function StoriesBitmoji(event) {
   return (
-    <View style={styles.myBitmoji}>
-      <View style={styles.shadows}> 
-      <Image
-        style={styles.bitmojiImage}
-        source={require("../../assets/snapchat/martina.png")}
-      />
+    <TouchableOpacity> 
+        <View style={styles.myBitmoji}>
+            <Image
+              style={styles.bitmojiImage}
+              source={require("../../assets/snapchat/personalBitmoji.png")}
+            />
+            <View style={styles.bitmojiTextContainer}>
+              <Text style={styles.bitmojiText}>My Bitmoji</Text>
+            </View>
+          </View>
 
-      </View>
-      
-      <View style={styles.bitmojiTextContainer}>
-        <Text style={styles.bitmojiText}>Name</Text>
-        <Text style={styles.usernameText}>Username</Text>
-      </View>
-    </View>
+    </TouchableOpacity>
+    
   );
 }
 
@@ -30,30 +31,15 @@ const styles = StyleSheet.create({
   myBitmoji: {
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 5,
-    marginBottom: 5,
-
-
   },
   bitmojiImage: {
     width: 60,
     height: 60,
-    backgroundColor:"#E6E6E6",
-    borderRadius:"50%",
-  },
-  shadows: {
-    shadowColor:"black",
-    shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: 0},  
   },
   bitmojiTextContainer: {
-    // backgroundColor: "white",
+    backgroundColor: "white",
     borderRadius: 20,
     padding: 4,
-    shadowColor: "black",
-    
   },
   bitmojiText: {
     alignSelf: "center",
