@@ -27,7 +27,7 @@ export default function UserChat({ chatId }) {
         //console.log("date is: ", obj.createdAt);
         return {
           ...obj,
-          //createdAt: obj.createdAt.toDate(),
+          createdAt: obj.createdAt.toDate(),
         };
       });
 
