@@ -23,7 +23,7 @@ export default function () {
           options={{ headerShown: true }}
         />
         <Stack.Screen
-          name="Conversation"
+          name="Achieve AI"
           component={ConversationScreen}
           options={{ headerShown: true }}
         />

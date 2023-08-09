@@ -1,0 +1,360 @@
+import React, { useState, useCallback, useEffect } from "react";
+import { GiftedChat, Bubble, Time } from "react-native-gifted-chat";
+import { Button } from "react-native-elements";
+import { View, StyleSheet, Text } from "react-native"; // Import the View and StyleSheet components
+import { getChat } from "../utils/hooks/getChatGPT";
+
+const CHATBOT_USER_OBJ = {
+  _id: 1,
+  name: "Achieve AI",
+};
+
+export default function AchieveAI() {
+  const [messages, setMessages] = useState([]);
+  const [state, setState] = useState(0);
+  const [notify, setNotify] = useState(false);
+  async function fetchinitialMessage() {
+    const response = await getChat(prompt);
+    const message = response.choices[0].message;
+    const content = response.choices[0].message.content;
+    setMessagesGPT(messagesGPT.concat(message));
+    setMessages([
+      {
+        id: 1,
+        text: content,
+        createdAt: new Date(),
+        user: CHATBOT_USER_OBJ,
+      },
+    ]);
+  }
+
+  const [optionsList, setOptionsList] = useState({
+    optionList1: [
+      "Do homework for an hour",
+      "One leet code a day",
+      "Write for an hour",
+    ],
+    optionList2: ["Daily", "Weekly"],
+    optionList3: ["A week", "A month"],
+    optionsList4: ["Yes", "No"],
+  });
+
+  const [question, setQuestion] = useState([
+    "What goal would you like to focus on?",
+    "To make the best use of our time, we could decide on a time where I check in with you about your goal. How often would you like to get notified?",
+    "How long would you like to commit to this goal?",
+  ]);
+
+  const [userGoal, setUserGoal] = useState(" ");
+  const [notifTime, setNotifTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const prompt = [
+    {
+      role: "system",
+      content: `You are goal GPT, you will be given user data on their goals. You have to send a short, personalised accountabilty message to the user based on their goal. The user goal is ${userGoal}. The user name is Megha. Make sure the message is at most 4 sentences long. Make sure you ask the user if they accomplished their goal for today in your accountabity message. If the user says that they did not accomplish it make sure to find out why and give them concise advice on how they can accomplish their goal. `,
+    },
+  ];
+  const [messagesGPT, setMessagesGPT] = useState(prompt);
+
+  const [progress, setProgress] = useState(false);
+
+  const sendNotification = async () => {
+    // Create a notification message
+    try {
+      // Create a notification message
+      await fetchinitialMessage();
+      // ... other code ...
+    } catch (error) {
+      console.error("Error while sending notification:", error);
+    }
+    const notificationMessage = {
+      _id: Math.round(Math.random() * 1000000),
+      createdAt: new Date(),
+    };
+
+    // Add the notification message to the chat
+    addNewMessage([notificationMessage]);
+
+    // Schedule the next notification
+    const nextNotificationTime = new Date(
+      Date.now() + notifTime * 60 * 60 * 1000
+    );
+    const timeUntilNextNotification = nextNotificationTime - Date.now();
+    setTimeout(sendNotification, timeUntilNextNotification);
+  };
+
+  useEffect(() => {
+    if (notifTime > 0) {
+      const initialNotificationTime = new Date(
+        Date.now() + notifTime * 60 * 60 * 1000
+      );
+      const timeUntilInitialNotification = initialNotificationTime - Date.now();
+      console.log("time until next notif:", timeUntilInitialNotification);
+      setTimeout(sendNotification, timeUntilInitialNotification);
+    }
+
+    // Clean up the scheduled notifications when the component unmounts
+    return () => {
+      clearTimeout();
+    };
+  }, [notifTime]);
+
+  useEffect(() => {
+    setMessages([
+      {
+        _id: 1,
+        text: "Hello! I'm your study buddy, here to support you towards your study goals. Would you like to get started?",
+        createdAt: new Date(),
+        user: CHATBOT_USER_OBJ,
+      },
+    ]);
+    setState(1);
+  }, []);
+
+  const addNewMessage = (newMessages) => {
+    setMessages((previousMessages) => {
+      const uniqueMessages = newMessages.map((message) => ({
+        ...message,
+        _id: Math.round(Math.random() * 1000000), // Assign a unique _id to each message
+      }));
+      return GiftedChat.append(previousMessages, uniqueMessages);
+    });
+  };
+
+  const createUserMessage = (text) => ({
+    _id: Math.round(Math.random() * 1000000),
+    text,
+    createdAt: new Date(),
+    user: {
+      _id: 1,
+      name: "User",
+    },
+  });
+
+  const addBotMessage = (text) => {
+    addNewMessage([
+      {
+        _id: Math.round(Math.random() * 1000000),
+        text: text,
+        createdAt: new Date(),
+        user: CHATBOT_USER_OBJ,
+      },
+    ]);
+  };
+
+  const renderBubble = (props) => {
+    return (
+      <View>
+        <Bubble
+          {...props}
+          wrapperStyle={{
+            right: {
+              backgroundColor: "#FFFFFF", // Custom background color for user and bot messages
+            },
+            left: {
+              backgroundColor: "#E5E5E5", // Custom background color for user and bot messages
+            },
+          }}
+          textStyle={{
+            right: {
+              color: "#black", // Custom text color for user messages
+            },
+            left: {
+              color: "#black", // Custom text color for bot messages
+            },
+          }}
+        />
+      </View>
+    );
+  };
+
+  const renderSystemMessage = (props) => {
+    if (props.currentMessage.system) {
+      const options = props.currentMessage.text.split("\n");
+      return (
+        <View style={styles.buttonContainer}>
+          {options.map((option, index) => (
+            <Button
+              key={index}
+              title={option}
+              onPress={() => handleOptionResponse(option)}
+              buttonStyle={styles.button}
+              titleStyle={styles.buttonText}
+            />
+          ))}
+        </View>
+      );
+    }
+    return null; // Render nothing for regular messages
+  };
+
+  const renderAvatar = () => {
+    return null; // Return null to hide the avatar bubble
+  };
+
+  const renderTime = () => null;
+
+  const sendOptionsAsSystemMessage = (options) => {
+    if (Array.isArray(options)) {
+      options.forEach((option) => {
+        const systemMessage = createUserMessage(option);
+        systemMessage.system = true;
+        addNewMessage([systemMessage]);
+      });
+    } else {
+      // If a single option is provided, convert it into an array and call the function recursively
+      sendOptionsAsSystemMessage([options]);
+    }
+  };
+
+  // Function to handle user's response to options
+  const handleOptionResponse = (option) => {
+    if (state === 2) {
+      if (option === optionsList.optionList1[0]) {
+        setUserGoal("do an hour of homework");
+        addBotMessage("Your goal is to do an hour of hw. That's awesome!");
+      } else if (option === optionsList.optionList1[1]) {
+        setUserGoal("solve a leetcode problem");
+        addBotMessage(
+          "Your goal is to solve one leet code problem. That's awesome!"
+        );
+      } else if (option === optionsList.optionList1[2]) {
+        setUserGoal("write for an hour");
+        addBotMessage("Your goal is to write for an hour. That's awesome!");
+      }
+      setState(3);
+      addBotMessage(question[1]);
+      sendOptionsAsSystemMessage(optionsList.optionList2);
+    } else if (state === 3) {
+      if (option === optionsList.optionList2[0]) {
+        setNotifTime(0.01);
+        addBotMessage("You would like to get notified daily");
+      } else if (option === optionsList.optionList2[1]) {
+        setNotifTime(24 * 7);
+        addBotMessage("You would like to get notified weekly");
+      }
+      setState(4);
+      addBotMessage(question[2]);
+      sendOptionsAsSystemMessage(optionsList.optionList3);
+    } else if (state === 4) {
+      if (option === optionsList.optionList3[0]) {
+        setDuration(7);
+        addBotMessage(
+          "Great, you would like to track your progress towards your goals for a week!"
+        );
+      } else if (option === optionsList.optionList3[1]) {
+        setDuration(30);
+        addBotMessage(
+          "Great, you would like to track your progress towards your goals for a month!"
+        );
+      }
+      setState(5);
+      addBotMessage("Do you want a summary of your goal?");
+    }
+  };
+
+  const respondToUser = (userMessages) => {
+    if (state === 1) {
+      setState(2);
+      addBotMessage(question[0]);
+      sendOptionsAsSystemMessage(optionsList.optionList1);
+    }
+
+    if (state == 5) {
+      if (userMessages[0].text == "Yes") {
+        console.log(userGoal);
+        console.log(notifTime);
+        console.log(duration);
+        const summary = `Your goal is to ${userGoal}. You want to get notified every ${notifTime} hours. You want to track your progress for ${duration} days.`;
+        addBotMessage(summary);
+      } else {
+        setState(6);
+        console.log(state);
+        addBotMessage(
+          "Perfect! I'll notify you during your set duration to help you stay in track for this journey!"
+        );
+      }
+      console.log("here");
+      setState(6);
+    }
+    if (state == 6) {
+      console.log("here");
+      gptRespondToUser(messages);
+    }
+  };
+
+  const gptRespondToUser = async (userMessages) => {
+    try {
+      const userMessageText = userMessages[0].text;
+      const messagesObj = {
+        role: "user",
+        content: userMessageText,
+      };
+      const messageHistory = messagesGPT.concat(messagesObj);
+      console.log("Message history:", messageHistory); // Add this line
+      let response = await getChat(messageHistory);
+      console.log("GPT response:", response); // Add this line
+      const messageResponse = response.choices[0].message;
+      const content = messageResponse.content;
+      console.log("Content:", content); // Add this line
+      setMessagesGPT(messageHistory.concat(messageResponse));
+
+      addBotMessage(content);
+    } catch (error) {
+      console.error("Error while responding to user:", error);
+    }
+  };
+
+  const onSend = useCallback((messages = []) => {
+    const uniqueMessages = messages.map((message) => ({
+      ...message,
+      _id: Math.round(Math.random() * 1000000), // Assign a unique _id to each message
+    }));
+    addNewMessage(uniqueMessages);
+  }, []);
+
+  return (
+    <View style={styles.chatContainer}>
+      <GiftedChat
+        messages={messages}
+        alignTop={true}
+        onSend={(messages) => {
+          onSend(messages);
+          setTimeout(() => respondToUser(messages), 1000);
+        }}
+        user={{
+          _id: 1,
+          name: "Education Team",
+        }}
+        renderBubble={renderBubble}
+        renderAvatar={renderAvatar}
+        renderTime={renderTime}
+        renderSystemMessage={renderSystemMessage}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  chatContainer: {
+    flex: 1,
+    backgroundColor: "#F0F0F0",
+    // Set your desired background color here
+  },
+  buttonContainer: {
+    borderRadius: 10,
+    padding: 10,
+    marginRight: 0, // Adjusted to align the buttons to the left
+    marginLeft: 0, // Adjusted to align the buttons to the left
+  },
+  button: {
+    backgroundColor: "#FFFFFF", // Custom background color
+    borderRadius: 10, // Custom border radius
+    paddingVertical: 10, // Custom vertical padding
+    marginHorizontal: 5, // Add some space between the buttons
+  },
+  buttonText: {
+    color: "black", // Custom text color
+    fontSize: 16, // Custom font size
+  },
+});

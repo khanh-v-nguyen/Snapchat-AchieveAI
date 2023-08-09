@@ -3,21 +3,22 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Platform, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import UserChat from "../components/UserChat";
-import BasicChatbot from "../chatbots/BasicChatbot";
-import BakersChatbot from "../chatbots/BakersChatbot";
+
+import AchieveAI from "../chatbots/AchieveAI";
+import AchieveAI2 from "../chatbots/AchieveAi2";
 
 // prettier-ignore
 export const CHATBOTS = {
-  "BasicChatbot": {
-    name: "React Native Chatbot",
+  "Achieve AI": {
+    name: "Achieve AI",
     imageUrl: "https://loremflickr.com/140/140",
-    component: BasicChatbot,
+    component: AchieveAI,
   },
-  "BakersChatbot": {
-    name: "Baker's Dog Trivia",
-    imageUrl: "https://img.freepik.com/free-vector/cute-dog-robot-cartoon-character-animal-technology-isolated_138676-3143.jpg?w=150",
-    component: BakersChatbot,
-  }
+  "Achieve AI2": {
+    name: "Achieve AI2",
+    imageUrl: "https://loremflickr.com/140/140",
+    component: AchieveAI2,
+  },
 }
 
 export default function ConversationScreen({ route, navigation }) {
@@ -44,6 +45,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#ffffff",
+
     // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  topNav: {
+    flex: 1,
+    backgroundColor: "lightgrey",
   },
 });
