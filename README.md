@@ -1,60 +1,29 @@
-# Final Project Starter
+# Achieve AI and Study Pods
 
-This will be the starter code for your final project! But first, we're going to spend a day making improvements to it. We'll use pull requests to manage this, and for that you'll need to be on your own branch. You can work in pairs or on your own.
+Our feature is an integrated suite of study tools within Snapchat, designed to keep under-resourced students accountable towards achieving their educational goals. This suite includes:
+1. Achieve AI - an academic coach, giving under-resourced students personalized academic guidance. 
+2. Pods - Pods are dedicated virtual study “rooms” where users can connect, be productive, and hold each other accountable.						
+  a. Study Streaks - With Achieve AI and Study Pods, students can also monitor their study consistency with Study Streaks (similar to Snapchat streaks).
 
-## 1. Create your branch
+# Instructions for installing the demo app via Expo.
 
-After cloning this repo to your computer, **make a new branch** with your name! All of your changes need to be on this branch.
+1. Install Expo Go on your mobile device
+2. Use the camera on your mobile device to scan the QR code
 
-![image](https://github.com/Snap-Engineering-Academy-2023/snapchat-starter/assets/7607483/419f0449-412f-4f77-851b-979ac56b7122)
+# How to contribute: 
 
-## 2. Add firebase config and Explore!
+# Set up :
+1. Clone repo - in the repo, go to Code => Github CLI and copy the command. Clone it into the desired folder you want to work on by pasting this command to the terminal.
+2. Make a separate branch - open the code in a code editor and create a separate branch for the changes you want to make. 
+3. Create a new yarn project with yarn install and make sure your yarn version is 1.22.19
+4. Initialize an expo project with yarn create expo
+5. Run yarn expo start and run the app locally by pressing i. 
+Install expo on your phone from the app store. Scan the QR code from the terminal in your phone to run the app on your phone in expo.
 
-Get the code running! You'll need to add a `firebase.js` file. You should be able to use the exact some one you used in your snapchatbots project.
+# Deploying changes: 
 
-## 3. Improve the starter code
+1. Once you have added on to the project, commit and push your changes to the repo in your current project branch. Create a pull request detailing the changes you have made in this format: 
+- What - what you changed.
+- Where - the files, functions and lines you changes
+- Why - explain why this change was necessary 
 
-Pick something you want to fix/add about the starter code, put it in the Slack and work on it! Use slack to make sure we don't have too much overlap, but you can always collaborate with others if you both want to work on the same thing!
-
-## 4. Create your pull request
-
-<details>
-<summary>OPEN ME! Many Screenshots Inside</summary>
-
-### A - Add and Commit your changes locally
-  
-![commit changes](https://github.com/Snap-Engineering-Academy-2023/snapchat-starter/assets/7607483/f5ebd117-81b8-4b21-82eb-b3eacd365caf)
-
-### B - Push your changes
-
-![push changes](https://github.com/Snap-Engineering-Academy-2023/snapchat-starter/assets/7607483/eb851dda-2c79-4b97-ac9a-844c4787e7ba)
-
-### C - View and starting creating your pull request on Github
-
-![start creating pull request](https://github.com/Snap-Engineering-Academy-2023/snapchat-starter/assets/7607483/a5771ba6-a3d1-4bc1-ae13-2ae25f716aed)
-
-### D - Describe your pull request
-
-![describe pull request](https://github.com/Snap-Engineering-Academy-2023/snapchat-starter/assets/7607483/b608c668-b48a-4f2f-b007-a28dbc8e89a0)
-
-In your pull request, please be specific about what updates you have added. The header should summarize the main fixes that your edits address and your comment
-should include specific details of exactly what was changed. Please include screenshots of the edited screen before and after your changes. Here is a great 
-example from Felicia.
-<img width="1065" alt="image" src="https://github.com/Snap-Engineering-Academy-2023/snapchat-starter/assets/74020035/12043923-5cd6-4085-a285-d8ec64fd8c43">
-
-
-### F - View your created pull request
-
-![view created pull request](https://github.com/Snap-Engineering-Academy-2023/snapchat-starter/assets/7607483/967d52d6-15e5-4920-9cc2-53c06872bfc5)
-
-</details>
-
-<br/>
-
-<br/>
-
-## 5. Review and Merge your changes
-
-After you've created a pull request, it can merged into the main branch!
-
-The instructors will likely handle most of this process, consulting with the creator of each pull request as needed.
