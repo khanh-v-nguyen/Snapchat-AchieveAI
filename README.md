@@ -3,7 +3,7 @@
 Our feature is an integrated suite of study tools within Snapchat, designed to keep under-resourced students accountable towards achieving their educational goals. This suite includes:
 1. Achieve AI - an academic coach, giving under-resourced students personalized academic guidance. 
 2. Pods - Pods are dedicated virtual study “rooms” where users can connect, be productive, and hold each other accountable.
-2.a. Study Streaks - With Achieve AI and Study Pods, students can also monitor their study consistency with Study Streaks (similar to Snapchat streaks).
+3. Study Streaks - With Achieve AI and Study Pods, students can also monitor their study consistency with Study Streaks (similar to Snapchat streaks).
 
 # Instructions for installing the demo app via Expo.
 
