@@ -5,7 +5,12 @@ Our feature is an integrated suite of study tools within Snapchat, designed to k
 2. Pods - Pods are dedicated virtual study “rooms” where users can connect, be productive, and hold each other accountable.
 	1. Study Streaks - With Achieve AI and Study Pods, students can also monitor their study consistency with Study Streaks (similar to Snapchat streaks).
 
-![Flow_Ai_Join-Pod](https://github.com/Snap-Engineering-Academy-2023/education/assets/96401366/81a728ce-11ef-4af9-9d0a-6a2f257120e5)
+<img width="369" alt="Screenshot 2023-08-11 at 4 39 09 PM" src="https://github.com/Snap-Engineering-Academy-2023/education/assets/96401366/73071423-341f-49af-8898-bb7f2f2b376a">
+
+<img width="350" alt="Screenshot 2023-08-11 at 4 37 08 PM" src="https://github.com/Snap-Engineering-Academy-2023/education/assets/96401366/cb3ca73d-c2a8-4fb9-8ef2-6c9d3068b727">
+
+![iPhone 14 Pro-studtstreak](https://github.com/Snap-Engineering-Academy-2023/education/assets/96401366/0be8338c-64c8-476c-8e7a-131595512734)
+
 
 # Instructions for installing the demo app via Expo.
 
