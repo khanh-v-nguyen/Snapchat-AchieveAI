@@ -14,6 +14,8 @@ import { fontHeader } from "../../assets/themes/font";
 import { colors } from "../../assets/themes/colors";
 import StoriesBitmoji from "../components/StoriesBitmoji";
 import DiscoverFeed from "../components/DiscoverFeed";
+import CircleButton from "../components/CircleButtons.js";
+
 
 import Header from "../components/Header";
 
@@ -65,16 +67,16 @@ export default function StoriesScreen({ route, navigation }) {
           <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.stories}
+            // contentContainerStyle={styles.stories}
           >
-            <StoriesBitmoji />
-            <StoriesBitmoji />
-            <StoriesBitmoji />
-            <StoriesBitmoji />
-            <StoriesBitmoji />
-            <StoriesBitmoji />
-            <StoriesBitmoji />
-          </ScrollView>
+            <CircleButton name="Joshua" username="imjoshua" img={require('../../assets/pfps/Rectangle-5.png')}/>
+            <CircleButton name="Will" username="imwill" img={require('../../assets/pfps/Rectangle.png')}/>
+            <CircleButton name="Sammy" username="imsammy" img={require('../../assets/pfps/Rectangle-1.png')}/>
+            <CircleButton name="Anna" username="imanna" img={require('../../assets/pfps/Rectangle-3.png')}/>
+            <CircleButton name="David" username="imdavid"img={require('../../assets/pfps/Rectangle-4.png')}/>
+            <CircleButton name="Megha" username="immegha" img={require('../../assets/pfps/Rectangle-2.png')}/>
+            <CircleButton name="Khanh" username="imkhanh" img={require('../../assets/pfps/Rectangle-6.png')}/>
+</ScrollView>
         </View>
         <View style={styles.discoverContent}>
           <Text style={styles.sectionHeader}>Discover</Text>
@@ -115,7 +117,7 @@ const styles = StyleSheet.create({
   },
   stories: {
     display: "flex",
-    gap: 12,
+    // gap: 12,
     width: "100%",
   },
   DiscoveryContainer: {

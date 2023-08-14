@@ -1,77 +1,4 @@
-// import react from "react";
-// import {
-//   View,
-//   Text,
-//   StyleSheet,
-//   Image,
-//   ScrollView,
-//   ImageBackground,
-// } from "react-native";
-// import { useSafeAreaInsets } from "react-native-safe-area-context";
-// import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
-// import { fontHeader } from "../../assets/themes/font";
-// import { colors } from "../../assets/themes/colors";
 
-// export default function DiscoverFeed() {
-//   return (
-//     <View style={styles.Square}>
-//       <ImageBackground
-//         style={styles.FeedImage}
-//         imageStyle={{ borderRadius: 20 }}
-//         source={{
-//           uri: "https://eccles.utah.edu/wp-content/uploads/2017/02/snapchat.jpg",
-//         }}
-//       >
-//         <Text style={styles.FeedText}>Hello My Name Is Chillahs</Text>
-//       </ImageBackground>
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   FeedContainer: {
-//     paddingLeft: 20,
-//     width: "100%",
-//   },
-//   Square: {
-//     width: "49%",
-//     alignItems: "center",
-//     backgroundColor: colors.secondary,
-//     borderRadius: 4,
-//   },
-//   FeedImage: {
-//     width: 180,
-//     height: 320,
-//     borderRadius: 20,
-//     shadowColor: "#000",
-//     shadowOffset: {
-//       width: 0,
-//       height: 2,
-//     },
-//     shadowOpacity: 0.25,
-//     shadowRadius: 3.84,
-//     elevation: 5,
-//   },
-//   FeedText: {
-//     padding: 8,
-//     fontWeight: "700",
-//     fontSize: 14,
-//     color: "white",
-//     position: "absolute",
-//     right: 15,
-//     bottom: 15,
-//     textShadowColor: "#000",
-//     textShadowOffset: {
-//       width: -1,
-//       height: -1,
-//     },
-//     textShadowRadius: 1,
-//     textShadowOpacity: 1,
-//   },
-//   smallFeedText: {},
-// });
-
-///
 
 import React from "react";
 import { View, Text } from "react-native";
@@ -85,10 +12,10 @@ export default function DiscoverFeed() {
             <ImageBackground style={styles.feedImage}
                 // style={{height: 100, width: 100}}
                 imageStyle={{borderRadius: 12}}
-                source={{ uri: "https://i.pinimg.com/1200x/2e/77/ed/2e77ed5fe025283af8e3e95dcd3323b0.jpg" }}>
+                source={{ uri: "https://i.pinimg.com/736x/b0/83/e3/b083e3ae17ed17d52e41a2940b104e1c.jpg" }}>
             
                 <View style={styles.textDiv}>
-                    <Text style = {styles.dText}>Hello World! I am Chillah the Snap Ghost!</Text>
+                    <Text style = {styles.dText}>New Study Features!</Text>
                     <Text style = {styles.sponsoredText}>Sponsored</Text>
                 </View>
             </ImageBackground>
@@ -125,7 +52,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     text: {
-      color: 'white',
+      color: 'black',
       fontSize: 42,
       lineHeight: 84,
       fontWeight: 'bold',

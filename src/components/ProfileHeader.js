@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
       paddingVertical: 8,
       justifyContent: "space-between",
       alignItems: "center",
-      backgroundColor: 'transparent'
+      backgroundColor: 'transparent',
+      
     },
     title: {
       textAlign: "center",

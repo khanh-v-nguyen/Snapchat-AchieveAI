@@ -6,9 +6,10 @@ import StudyingStoriesBitmoji from "../components/StudyingStoriesBitmoji.js";
 import { BottomSheetModal, BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import MySettings from "../screens/NewSettingsScreen.js"
 import { StatusBar } from "expo-status-bar";
-import MapOptions from "../components/MapOptions.js";
 import Pin from "../components/Pins.js"
 import SettingsHeader from "../components/SettingsHeader.js";
+import CircleButton from '../components/CircleButtons';
+
 
 import {
   StyleSheet,
@@ -29,8 +30,6 @@ export default function MapScreen({ navigation }) {
   const insets = useSafeAreaInsets();
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-
-
 
   const [currentRegion, setCurrentRegion] = useState({
     latitude: 34.0211573,
@@ -63,12 +62,10 @@ export default function MapScreen({ navigation }) {
 
 
   const amelieCoordinate = { latitude: 34.0211573, longitude: -118.4503864, }; // Replace with your desired coordinate
-  const adam = require("../../assets/snapchat/adam.png")
+  const adam = require("../../assets/bitmojis/annastudy.png")
 
   const adamCoordinate = { latitude: 34.038240, longitude: -118.440620 }; // Replace with your desired coordinate
-  const amelie = require("../../assets/snapchat/amelie.png")
-
-  const [selectedCoordinate, setSelectedCoordinate] = useState({adamCoordinate})
+  const amelie = require("../../assets/bitmojis/khanhstudy.png")
 
   //MODAL 
   const [modalVisible, setModalVisible] = useState(false);
@@ -84,54 +81,45 @@ export default function MapScreen({ navigation }) {
   
   function handlePresentModal() {
     bottomSheetModalRef.current?.present();
-    setCurrentRegion({ ...currentRegion, latitude: 34.038240, longitude: -118.440620  });
+    // setCurrentRegion({ ...currentRegion, latitude: 34.038240, longitude: -118.440620  });
   }
 
   function friendsHandlePresentModal() {
     friendsBottomSheetModalRef.current?.present();
   }
 
-  const test = () => {
-    console.log('function works')
-  }
-
   const BitmojiMarker = (props) =>
   {
     const doSomething = props.onPress
+    
     return (
-      <TouchableOpacity>
-              <Marker coordinate={adamCoordinate} onPress={doSomething} title={"Adam is open to pods!"} description={props.description}>
-                <Image source={adam} style={styles.marker}></Image>
-              </Marker>
+      <TouchableOpacity onPress={doSomething}>
+        <Marker coordinate={props.coords} onPress={doSomething}>
+          <Image source={props.source} style={styles.marker}></Image>
+        </Marker>
       </TouchableOpacity>
       )
   }
 
- 
-
-  // function BitmojiMarker({props}) {
-  //   return (
-  //   <TouchableOpacity>
-  //           <Marker coordinate={adamCoordinate} onPress={props.onPress} title={"Adam is open to pods!"} description={"Adam is currently studying mathematics."}>
-  //             <Image source={adam} style={styles.marker}></Image>
-  //           </Marker>
-  //   </TouchableOpacity>
-  //   )
-  // }
+  function MapOptions(props) {
+    return (
+      <View style={styles.myBitmoji}>
+            <Image
+              style={styles.bitmojiImage}
+              source={require("../../assets/snapchat/personalBitmoji.png")}
+            />
+            <View style={styles.bitmojiTextContainer}>
+              <Text style={styles.bitmojiText}>{props.title}</Text>
+            </View>
+          </View>
+    )
+  }
 
   return (
     <View style={[styles.container, { marginBottom: tabBarHeight }, {
       // Paddings to handle safe area
-      paddingTop: insets.top + 200,
-      paddingBottom: insets.bottom,
-      paddingLeft: insets.left,
-      paddingRight: insets.right,
-      marginBottom: tabBarHeight,
     },]}>
-
-      <SettingsHeader title="Map"></SettingsHeader>
   
-
       <BottomSheetModalProvider>
 
       <MapView
@@ -142,121 +130,62 @@ export default function MapScreen({ navigation }) {
       >
       
           <View>
-          
-          {/* <BitmojiMarker onPress={test} description="Megha"></BitmojiMarker> */}
-
-          <TouchableOpacity>
-              <Marker coordinate={adamCoordinate} onPress={handlePresentModal} title={"Adam is open to pods!"} description={"Adam is currently studying mathematics."}>
-                <Image source={adam} style={styles.marker}></Image>
-              </Marker>
-          </TouchableOpacity>
-
-
+                    
             <StatusBar style="auto"/>
             <BottomSheetModal ref={bottomSheetModalRef} index={0} snapPoints={snapPoints} backgroundStyle={{backgroundColor: "white"}}>
               
               <View style={styles.bottomSheetProfileContainer}>
-                <Image style={styles.bottomSheetImageContainer} source={require('../../assets/snapchat/adampfp.png')}/>
+                <Image style={styles.bottomSheetImageContainer} source={require('../../assets/bitmojis/annastudypfp.png')}/>
                 <View style={styles.bottomSheetTextContainer}>
-                  <Text style={{fontWeight: 'bold'}}>Adam</Text>
+                  <Text style={{fontWeight: 'bold'}}>Anna</Text>
                   <Text style={{color: "gray"}}>Santa Monica, CA 2h • ago</Text>
                 </View>
               </View>
 
               <View style={styles.bottomSheetButtonsContainer}>
-              <Pin title="Available for Study" color='orange'></Pin>
-
-                <TouchableOpacity onPress={()=> {setPodsModalVisible(true)}}>
-                  <Pin title="Pods" color='white' ></Pin>
-                </TouchableOpacity>
-
-              <Pin title="Chat" color='white'></Pin>
+              <Pin title="Share Live" color='#51C092' icon="people" iconColor="white"></Pin>
+              <Pin title="Pods" color='orange' icon='book' iconColor="white" onTap={()=>setPodsModalVisible(true)}></Pin>
+              <Pin color='white' icon="chatbox"></Pin>
               </View>
 
             </BottomSheetModal>
           </View>
 
-        <Marker coordinate={amelieCoordinate} onPress={e => console.log("I am amelie Bitmoji!")}>
+        
+
+        <Marker coordinate={adamCoordinate} onPress={handlePresentModal}>
+              <Image source={adam} style={styles.marker}></Image>
+        </Marker>
+
+        <Marker coordinate={amelieCoordinate}>
             <Image source={amelie} style={styles.marker}></Image>
-          </Marker>
+        </Marker>
         
       </MapView>
 
+      <BottomSheetModal ref={friendsBottomSheetModalRef} index={0} snapPoints={snapPoints} backgroundStyle={{backgroundColor: "white"}}>
+        <Text style={{fontWeight: 'bold'}}>Friends</Text>
+        <ScrollView horizontal={true}>
+        <CircleButton name="Joshua" username="imjoshua" img={require('../../assets/pfps/Rectangle-5.png')}/>
+            <CircleButton name="Will" username="imwill" img={require('../../assets/pfps/Rectangle.png')}/>
+            <CircleButton name="Sammy" username="imsammy" img={require('../../assets/pfps/Rectangle-1.png')}/>
+            <CircleButton name="Anna" username="imanna" img={require('../../assets/pfps/Rectangle-3.png')}/>
+            <CircleButton name="David" username="imdavid"img={require('../../assets/pfps/Rectangle-4.png')}/>
+            <CircleButton name="Megha" username="immegha" img={require('../../assets/pfps/Rectangle-2.png')}/>
+            <CircleButton name="Khanh" username="imkhanh" img={require('../../assets/pfps/Rectangle-6.png')}/>
+        </ScrollView>
+        
+      </BottomSheetModal>
+
 
       <View style={[styles.mapFooter]}>
-        <View style={styles.locationContainer}>
-          <TouchableOpacity
-            style={[styles.userLocation, styles.shadow]}
-            onPress={() => {
-              console.log("Go to user location!");
-              const { latitude, longitude } = location.coords;
-              console.log(latitude)
-              console.log(longitude)
-
-              setCurrentRegion({ ...currentRegion, latitude, longitude  });
-            }}
-          >
-            <Ionicons name="ios-navigate" size={15} color="black" />
-          </TouchableOpacity>
-        </View>
-        <View>
-        </View>
-      
+          
         <View style={[styles.bitmojiContainer, styles.shadow]}>
-
-          <MapOptions></MapOptions>
-          <MapOptions></MapOptions>
-
-          <MapOptions></MapOptions>
-
-
-          {/* <View style={styles.myBitmoji}>
-            <Image
-              style={styles.bitmojiImage}
-              source={require("../../assets/snapchat/personalBitmoji.png")}
-            />
-            <View style={styles.bitmojiTextContainer}>
-              <Text style={styles.bitmojiText}>My Bitmoji</Text>
-            </View>
-          </View>
-          <View style={styles.places}>
-            <Image
-              style={styles.bitmojiImage}
-              source={require("../../assets/snapchat/personalBitmoji.png")}
-            />
-            <View style={styles.bitmojiTextContainer}>
-              <Text style={styles.bitmojiText}>Places</Text>
-            </View>
-          </View> */}
-
-          <BottomSheetModal ref={friendsBottomSheetModalRef} index={0} snapPoints={snapPoints}>
-
-            <Text style={{fontWeight: 'bold', fontSize: 15}}>Find Your Friends</Text>
-            <ScrollView horizontal={true} contentContainerStyle={{justifyContent: 'space-between'}}>
-              <View style={{flexDirection: "row"}}>
-              <StudyingStoriesBitmoji name = "Khanh"></StudyingStoriesBitmoji>
-              <StudyingStoriesBitmoji name = "Joe"></StudyingStoriesBitmoji>
-              </View>
-          </ScrollView>
-          </BottomSheetModal>
-
-            
-          {/* <Pressable>
-            <TouchableOpacity onPress={friendsHandlePresentModal}>
-                <View style={styles.myFriends}>
-                <Image
-                  style={styles.bitmojiImage}
-                  source={require("../../assets/snapchat/personalBitmoji.png")}
-                />
-                <View style={styles.bitmojiTextContainer}>
-                  <Text style={styles.bitmojiText}>Friends</Text>
-                </View>
-              </View>
-            </TouchableOpacity>
-          </Pressable> */}
-
-
- 
+          <MapOptions title="My Bitmoji"></MapOptions>
+          <MapOptions title="Places"></MapOptions>
+          <TouchableOpacity onPress={()=>friendsHandlePresentModal()}>
+            <MapOptions title="Friends"></MapOptions>
+          </TouchableOpacity>
         </View>
 
       <Modal
@@ -268,17 +197,15 @@ export default function MapScreen({ navigation }) {
 
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Invite Adam to join you in Pods...</Text>
+
+            <Text style={[styles.modalText, {fontSize: 18}]}>Invite Anna to join you in Pods...</Text>
             <Text style={styles.modalText}>__________________________</Text>
-            <Text style={styles.modalText}>Start a group study by inviting your friend, Adam. </Text>
+            <Text style={styles.modalText}>Start a study group by inviting your friend, Anna. </Text>
             
-
-
             <View style={styles.iconShadow}>
-              <Image source={require('../../assets/snapchat/adampfp.png')} style={[styles.bottomSheetImageContainer, styles.iconShadow]}>
-            </Image>
-            
+              <Image source={require('../../assets/bitmojis/annastudypfp.png')} style={[styles.bottomSheetImageContainer, styles.iconShadow]}></Image>
             </View>
+
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setPodsModalVisible(!podsModalVisible)}>
@@ -286,59 +213,16 @@ export default function MapScreen({ navigation }) {
             </Pressable>
 
             <Pressable
-            
-              
               onPress={() => setPodsModalVisible(!podsModalVisible)}>
-              <Text >Deny</Text>
+              <Text style={styles.modalText}>Deny</Text>
             </Pressable>
           </View>
         </View>
       </Modal>
 
-      <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setPodsModalVisible(true)}>
-        <Text style={styles.textStyle}>Show Modal</Text>
-      </Pressable>
-
-
-      <Modal
-        animationType="slide"
-        // transparent={true}
-        visible={modalVisible}
-        presentationStyle="fullScreen"
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
-        <View>
-
-          
-        </View>
-        {/* <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Study mode!</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
-          </View>
-        </View> */}
-        <MySettings></MySettings>
-        <Button title="hey close this tab!" onPress={()=>setModalVisible(!modalVisible)}></Button>
-      </Modal>
-      <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}>
-        <Text style={styles.textStyle}>Show Modal</Text>
-      </Pressable>
-        
       </View>
 
       </BottomSheetModalProvider>
-
-
 
     </View>
   );
@@ -439,13 +323,12 @@ const styles = StyleSheet.create({
   },
   marker: {
     height: 150,
-    width: 70,
+    width: 150,
   },
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    marginTop: 200,
   },
 
   bottomSheetContainer: {
@@ -458,9 +341,9 @@ const styles = StyleSheet.create({
     
   },
   bottomSheetImageContainer: {
-    borderRadius: '50%',
-    width: 60,
-    height: 60,
+    borderRadius: 50,
+    width: 70,
+    height: 70,
     backgroundColor: 'white',
     margin: 5,
     
@@ -479,8 +362,6 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     borderRadius: '50%'
   },
-
-
 
 
 
@@ -505,11 +386,8 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 2,
   },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    backgroundColor: 'orange',
   },
   textStyle: {
     color: 'white',
@@ -517,18 +395,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalText: {
-    marginBottom: 15,
+    margin: 10,
     textAlign: 'center',
+    color: "black",
+    textAlign: "center",
+    fontFamily: "Avenir Next"
   },
   iconShadow: {
     shadowColor:"black",
     shadowOpacity: 0.3,
     shadowOffset: { width: 0, height: 0}, 
   },
-
-
-  profile: {
-    flexDirection: "row",
-    alignContent: "flex-start"
-  },
+  avenir: {
+    color: "black",
+    textAlign: "center",
+    fontFamily: "Avenir Next"
+  }
 });

@@ -13,12 +13,15 @@ import ProfileHeader from "../components/ProfileHeader.js";
 import { BottomSheetModal, BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { StatusBar } from "expo-status-bar";
 import React, { useRef, useState, useEffect, useCallback } from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function ProfileScreen(){
     const [isVisible, setIsVisible] = useState(false)
+    const insets = useSafeAreaInsets();
     
     const bottomSheetModalRef = useRef(null)
     const snapPoints = ["75%", "100%"]
@@ -79,7 +82,7 @@ export default function ProfileScreen(){
                                     fontWeight: 500,
                                     lineHeight: 24,
                                     
-                                    }}>Not Available for Pods</Text>
+                                    }}>Available for Pods</Text>
                                 <Text>Study Mode</Text>
                            </View>
                        </View>
@@ -126,10 +129,15 @@ export default function ProfileScreen(){
 
 
     return(
-        <View style={styles.container}>
+        <View style={[styles.container, {
+            paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        }]}>
             <ProfileHeader title="" destination="Chat"></ProfileHeader>
 
-            <Image source={require("../../assets/snapchat/ProfileBackground.png")}>
+            <Image style={{width: "100%"}} source={require("../../assets/snapchat/ProfileBackground.png")}>
                 
             </Image>
 
@@ -214,7 +222,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         // alignItems: "center",
-        // justifyContent: 'center',        
+        // justifyContent: 'center',  
+        
+
     },
     image: {
         width: "100%", 

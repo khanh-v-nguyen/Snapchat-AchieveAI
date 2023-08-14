@@ -10,7 +10,7 @@ import Header from "../components/Header";
 export default function StoriesBitmoji() {
   return (
     <View style={styles.myBitmoji}>
-      <View style={styles.shadows}> 
+      <View> 
       <Image
         style={styles.bitmojiImage}
         source={require("../../assets/snapchat/martina.png")}

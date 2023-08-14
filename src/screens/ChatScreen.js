@@ -113,6 +113,34 @@ export default function ChatScreen({ navigation }) {
             </View>
           );
         })}
+        <View>
+              <TouchableOpacity
+                style={styles.userButton}
+                onPress={() => {
+                  navigation.navigate("Spotlight");
+                }}
+                
+              >
+                <Ionicons
+                  style={styles.imageBackground}
+                  name="ellipse"
+                  size={42}
+                  color="lightgrey"
+                />
+                <Image
+                  style={styles.userImage}
+                  source={images[0]} // Provide the path to your user image
+                />
+                {/* This could be updated to get an actual name */}
+                <Text style={styles.userName}> Pods (4) </Text>
+
+                <Image
+                  style={styles.userCamera}
+                  source={require("./camera.png")} // Provide the path to your user image
+                />
+                
+              </TouchableOpacity>
+            </View>
         <Image
           style={styles.chatbottom}
           source={require("./chatscreen.png")} // Provide the path to your user image

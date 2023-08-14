@@ -10,7 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import MySettings from "../screens/NewSettingsScreen.js"
 import StudyPodsScreen from "../screens/StudyPodsScreen";
 
-export default function SettingsHeader({title, destination}) {
+export default function SettingsHeader({title, destination, onTap}) {
     const navigation = useNavigation();
     const goto = destination
 
@@ -50,38 +50,11 @@ export default function SettingsHeader({title, destination}) {
           <Text style={styles.title}>{title}</Text>
           <View style={styles.headerRight}>
 
-            <Modal
-            animationType="slide"
-            visible={podsModalVisible}
-            presentationStyle="fullScreen"
-            onRequestClose={() => {
-            setModalVisible(!podsModalVisible);
-            }}>
-            <StudyPodsScreen/>
-            <Button title="hey close this tab!" onPress={()=>setPodsModalVisible(!setPodsModalVisible)}></Button>
-            </Modal>
-
-
-
             <TouchableOpacity onPress={()=>setPodsModalVisible(true)} style={[styles.followers, styles.buttons]}>
               <Followers />
             </TouchableOpacity>
 
-
-
-        <Modal
-        animationType="slide"
-        visible={modalVisible}
-        presentationStyle="fullScreen"
-        onRequestClose={() => {
-        setModalVisible(!modalVisible);
-        }}>
-        <MySettings></MySettings>
-        <Button title="hey close this tab!" onPress={()=>setModalVisible(!modalVisible)}></Button>
-        </Modal>
-
-
-            <TouchableOpacity onPress={()=>setModalVisible(true)} style={[styles.more, styles.buttons]}>
+            <TouchableOpacity onPress={onTap} style={[styles.more, styles.buttons]}>
               <More />
             </TouchableOpacity>
 
