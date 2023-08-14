@@ -22,7 +22,6 @@ import {
 } from "@gorhom/bottom-sheet";
 import CircleButton from "../components/CircleButtons";
 
-import GPT from "../testing/TestChatBot.js";
 import { Circle } from "react-native-svg";
 export default function StudyPodsScreen() {
   const [isEnabled, setIsEnabled] = useState(false);
