@@ -4,7 +4,8 @@ import UserTab from "./UserTab";
 import ConversationScreen from "../screens/ConversationScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import SettingsScreen from "../screens/SettingsScreen";
-
+import AchieveAI2 from "../chatbots/AchieveAi2";
+import ScheduleScreen from "../screens/ScheduleScreen";
 const Stack = createStackNavigator();
 
 export default function () {
@@ -25,7 +26,17 @@ export default function () {
         <Stack.Screen
           name="Achieve AI"
           component={ConversationScreen}
-          options={{ headerShown: true }}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AchieveAI"
+          component={AchieveAI2}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ScheduleScreen"
+          component={ScheduleScreen}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

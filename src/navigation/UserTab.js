@@ -27,6 +27,7 @@ import CameraScreen from "../screens/CameraScreen";
 import StoriesScreen from "../screens/StoriesScreen";
 import SpotlightScreen from "../screens/SpotlightScreen";
 import ChatScreen from "../screens/ChatScreen";
+import ConversationScreen from "../screens/ConversationScreen";
 
 // Stacks
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -77,6 +78,7 @@ export default function UserStack({ route, navigation }) {
         component={ChatScreen}
         options={(screenOptions, { headerShown: false })}
       />
+
       <Tab.Screen
         name="Camera"
         component={CameraScreen}

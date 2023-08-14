@@ -2,10 +2,11 @@ import React, { useState, useCallback, useEffect } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
 import { getChat } from "../utils/hooks/getChatGPT";
 import { Bubble, Time, Day } from "react-native-gifted-chat";
-
+import ConversationHeader from "../components/ConversationHeader";
+import { View, StyleSheet } from "react-native";
 const CHATBOT_USER_OBJ = {
   _id: 2,
-  name: "Achieve AI",
+  name: "Achieve AI2",
 };
 
 const prompt = [
@@ -122,31 +123,43 @@ export default function AchieveAI2() {
     );
   };
   const renderDay = (props) => {
-    return <Day {...props} textStyle={{ color: "red" }} />;
+    return <Day {...props} textStyle={{ color: "grey" }} />;
   };
   const renderTime = () => null;
 
   return (
-    <GiftedChat
-      listViewProps={{
-        style: {
-          backgroundColor: "#F5F5F5",
-        },
-      }}
-      renderAvatar={null}
-      renderBubble={renderBubble}
-      renderTime={renderTime}
-      messages={messages}
-      renderDay={renderDay}
-      onSend={(messages) => {
-        onSend(messages);
-        setTimeout(() => respondToUser(messages), 1000);
-      }}
-      user={{
-        _id: 1,
-        name: "Megha",
-      }}
-      renderUsernameOnMessage={false}
-    />
+    <View style={styles.input}>
+      <ConversationHeader title="Achieve AI" />
+      <View style={{ flex: 1, marginBottom: 70 }}>
+        <GiftedChat
+          listViewProps={{
+            style: {
+              backgroundColor: "#F5F5F5",
+            },
+          }}
+          renderAvatar={null}
+          renderBubble={renderBubble}
+          renderTime={renderTime}
+          messages={messages}
+          renderDay={renderDay}
+          onSend={(messages) => {
+            onSend(messages);
+            setTimeout(() => respondToUser(messages), 1000);
+          }}
+          user={{
+            _id: 1,
+            name: "Megha",
+          }}
+          renderUsernameOnMessage={false}
+        />
+      </View>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  input: {
+    flex: 1,
+    top: 50,
+  },
+});

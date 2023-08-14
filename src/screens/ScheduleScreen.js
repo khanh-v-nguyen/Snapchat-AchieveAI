@@ -9,19 +9,14 @@ import ConversationHeader from "../components/ConversationHeader";
 import ConversationBottom from "../components/ConversationBottom";
 // prettier-ignore
 export const CHATBOTS = {
-  "Achieve AI": {
-    name: "Achieve AI Screen",
+  "Achieve AI2": {
+    name: "Achieve AI2",
     imageUrl: "https://loremflickr.com/140/140",
-    component: AchieveAIScreen,
+    component: AchieveAI2,
   },
-  // "Achieve AI2": {
-  //   name: "Achieve AI2",
-  //   imageUrl: "https://loremflickr.com/140/140",
-  //   component: AchieveAI2,
-  // },
 }
 
-export default function ConversationScreen({ route, navigation }) {
+export default function ScheduleScreen({ route, navigation }) {
   const { isChatbot, chatId } = route.params;
   const insets = useSafeAreaInsets();
 

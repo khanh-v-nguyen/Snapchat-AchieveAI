@@ -1,0 +1,162 @@
+import React, { useState, useCallback, useEffect } from "react";
+import { Text } from "react-native";
+import { GiftedChat } from "react-native-gifted-chat";
+import { StatusBar } from "expo-status-bar";
+
+import {
+  StyleSheet,
+  SafeAreaView,
+  Platform,
+  View,
+  TextInput,
+  Button,
+  Image,
+} from "react-native";
+import ChatBubble from "../components/ChatBubble.js";
+import { ScrollView } from "react-native-gesture-handler";
+import { getChat } from "../utils/hooks/getChatGPT.js";
+import ConversationBottom from "../components/ConversationBottom.js";
+
+const CHATBOT_USER_OBJ = {
+  _id: 3,
+  name: "React Native Chatbot",
+  avatar:
+    "https://blog.redbubble.com/wp-content/uploads/2019/05/Grumpy-Cat-Blog-Square.png",
+};
+
+const prompt = [
+  {
+    role: "system",
+    content:
+      "You are an accountablility coach. You will ask the user for their name and their educational goal, aka north star. if they would like to set a study timer. If they say yes, you will wish them good luck.",
+  },
+];
+
+export default function Boop() {
+  const [messages, setMessages] = useState([]); // for GiftedChat
+  const [messagesGPT, setMessagesGPT] = useState(prompt); // for ChatGPT
+
+  //store initial messa
+  const [snapMessages, setSnapMessages] = useState("");
+  const [allMessages, setAllMessages] = useState([]);
+  const [userInput, setUserInput] = useState("");
+
+  async function fetchInitialMessage() {
+    const response = await getChat(prompt);
+    const message = response.choices[0].message;
+    const content = response.choices[0].message.content;
+    setMessagesGPT(messagesGPT.concat(message));
+    setSnapMessages(content);
+  }
+
+  useEffect(() => {
+    fetchInitialMessage();
+  }, []);
+
+  const addNewMessage = (newMessages) => {
+    console.log(messages);
+    setMessages((previousMessages) => {
+      // console.log("PREVIOUS MESSAGES:", previousMessages);
+      // console.log("NEW MESSAGE:", newMessages);
+      return GiftedChat.append(previousMessages, newMessages);
+    });
+  };
+
+  //   const addBotMessage = (text) => {
+  //     addNewMessage([
+  //       {
+  //         _id: Math.round(Math.random() * 1000000),
+  //         text: text,
+  //         createdAt: new Date(),
+  //         user: CHATBOT_USER_OBJ,
+  //       },
+  //     ]);
+  //   };
+
+  function respondToUserFirst() {
+    setAllMessages([...allMessages, userInput]);
+    respondToUser();
+  }
+
+  async function respondToUser(userMessages) {
+    setAllMessages([...allMessages, userInput]);
+
+    // const userMessageText = userMessages[0].text;
+    const messageObj = {
+      role: "user",
+      content: userInput,
+    };
+    const messageHistory = messagesGPT.concat(messageObj);
+    console.log(messageHistory);
+    let response = await getChat(messageHistory);
+    const messageResponse = response.choices[0].message;
+    const content = messageResponse.content;
+
+    setMessagesGPT(messageHistory.concat(messageResponse));
+    setAllMessages((allMessages) => [...allMessages, content]);
+
+    // if(content.includes('start timer') || content.includes('Start timer') ){
+    //     console.log('end reached')
+    //     timer.push({'time': 20, 'type': 'seconds'})
+    //     displays.push(<MyTimer></MyTimer>)
+    //     console.log(timer)
+    // }
+
+    console.log(allMessages);
+    // addBotMessage(content);
+  }
+
+  const onSend = useCallback((messages = []) => {
+    addNewMessage(messages);
+  }, []);
+
+  function MyTimer() {
+    return (
+      <Image source={require("../../assets/snapchat/defaultprofile.png")} />
+    );
+  }
+
+  return (
+    // <GiftedChat
+    //   messages={messages}
+    //   onSend={(messages) => {
+    //     onSend(messages);
+    //     setTimeout(() => respondToUser(messages), 1000);
+    //   }}
+    //   user={{
+    //     _id: 1,
+    //     name: "Baker",
+    //   }}
+    //   renderUsernameOnMessage={true}
+    // />
+    <View style={styles.studyModeContainer}>
+      <Text>{snapMessages}</Text>
+      <ScrollView vertical={true}>
+        {allMessages.map((elem) => {
+          return <ChatBubble name="khanh" message={elem}></ChatBubble>;
+        })}
+      </ScrollView>
+
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setUserInput(text)}
+      ></TextInput>
+      <View style={styles.button}>
+        <Button title="ENTER" onPress={respondToUserFirst}></Button>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  button: { borderWidth: 1, backgroundColor: "#f5f5f5", color: "black" },
+
+  input: {
+    borderWidth: 1,
+  },
+  studyModeContainer: {
+    borderRadius: 10,
+    alignItems: "end",
+    width: "90%",
+  },
+});

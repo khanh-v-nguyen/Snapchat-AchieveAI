@@ -5,8 +5,6 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { collection, getDocs } from "firebase/firestore";
 import db from "../../firebase";
-import { fontHeader } from "../../assets/themes/font";
-
 import Header from "../components/Header";
 import { CHATBOTS } from "./ConversationScreen";
 
@@ -78,6 +76,21 @@ export default function ChatScreen({ navigation }) {
             source={require("./header.png")} // Provide the path to your user image
           />
         </TouchableOpacity>
+        {/* <View>
+          <TouchableOpacity
+            style={styles.userButton}
+            onPress={() => {
+              navigation.navigate("Achieve AI");
+            }}
+          >
+            <Image
+              style={styles.userImage}
+              source={images[0]} // Provide the path to your user image
+            />
+
+            <Text style={styles.userName}> Achieve AI </Text>
+          </TouchableOpacity>
+        </View> */}
         {chats?.map((chat) => {
           return (
             <View>
